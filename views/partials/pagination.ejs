@@ -1,0 +1,42 @@
+<% if(totalPages) {%>
+<section>
+   <ul class="pagination text-center">
+      <% if (currentPage == 1) { %>
+      <!-- enable/disable the 'first button' -->
+      <li class="page-item disabled"><a class="page-link">First</a></li>
+      <% } else { %>
+      <li><a class="page-link" href="/campgrounds/all/1">First</a></li>
+      <% } %>
+
+      <!-- if the current page is greater than 5 init i to 4 pages back -->
+      <% let i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %>
+      <!-- show ... if i > 1 this will be from page 6 onwards -->
+      <% if (i !== 1) { %>
+      <li class="page-item disabled"><a class="page-link">...</a></li>
+      <% } %>
+
+      <!-- for loop to create upto 9 links -->
+      <% for (; i <= (Number(currentPage) + 4) && i <= totalPages; i++) { %>
+
+      <!-- if i is the current page make the link active otherwise just create the link -->
+      <% if (i == currentPage) { %>
+      <li class="page-item active"><a class="page-link"><%= i %></a></li>
+      <% } else { %>
+      <li><a class="page-link" href="/campgrounds/all/<%= i %>"><%= i %></a></li>
+      <% } %>
+
+      <!-- if there are more pages to load show the ... button -->
+      <% if (i == Number(currentPage) + 4 && i < totalPages) { %>
+      <li class="page-item disabled"><a class="page-link">...</a></li>
+      <% } %>
+      <!-- end for loop -->
+      <% } %>
+
+      <% if (currentPage == totalPages) { %>
+      <li class="page-item disabled"><a class="page-link">Last <%= totalPages %></a></li>
+      <% } else { %>
+      <li><a class="page-link" href="/campgrounds/all/<%= totalPages %>">Last - <%= totalPages %></a></li>
+      <% } %>
+   </ul>
+</section>
+<% } %>

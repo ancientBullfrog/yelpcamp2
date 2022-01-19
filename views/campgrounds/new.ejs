@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+   <h1>ADD NEW CAMPGROUND</h1>
+   <div class="col-6 offset-3">
+      <form action="/campgrounds/new?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+         <div class="mb-3">
+            <label class="form-label" for="title">Name</label>
+            <input class="form-control" type="text" name="campground[title]" id="title" placeholder="Camp Name" required>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="location">Location</label>
+            <input class="form-control" type="text" name="campground[location]" id="location" placeholder="Camp Location" required>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="price">Price per-night</label>
+            <div class="input-group">
+               <span class="input-group-text" id="price-label">£</span>
+               <input class="form-control" type="text" name="campground[price]" id="price" aria-describedby="price-label" aria-label="price" placeholder="0.00" required>
+               <p class="valid-feedback">Looks Good!</p>
+            </div>
+         </div>
+         <div class="mb-3">
+            <label for="image" class="form-label">Upload Images</label>
+            <input class="form-control" type="file" multiple name="campground[image]" id="image">
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" name="campground[description]" id="description" cols="30" rows="3" placeholder="Describe this campsite" required></textarea>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <button class="btn btn-success">Add Camp!</button>
+         </div>
+      </form>
+      <p>Use client validations to prevent
+         <ul>
+            <li>Uploading to many files at once</li>
+            <li>Files which are too large / check id Cloudinary will optimise file sizes</li>
+         </ul>
+         Use onChange event listener, target.files.length
+      </p>
+      <p>Also implement server side validation for number of images - possible via multer upload.array('string',max)</p>
+      <p>Set upper limit for total photos? - server can check and disable uploads on template</p>
+
+   </div>
+</div>
+<!-- 
+**** When sending data from forms the data can be grouped together by using the following in the name pattribute CATEGORY[NAME] 
+**** {  //req.body
+****   CATEGORY {
+****      NAME: val,
+****      NAME: val,
+****      ...
+****   }
+**** }
+-->

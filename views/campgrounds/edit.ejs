@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+   <h1 class="text-center">EDIT <%= camp.title.toUpperCase() %></h1>
+   <div class="col-7 offset-3">
+
+      <form action="/campgrounds/<%=camp._id%>?_method=PATCH" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+         <div class="mb-3">
+            <label class="form-label" for="title">Name</label>
+            <input class="form-control" type="text" name="campground[title]" id="title" value="<%=camp.title%>" placeholder="Camp Name" required>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="location">Location</label>
+            <input class="form-control" type="text" name="campground[location]" id="location" value="<%=camp.location%>" placeholder="Camp Location" required>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="price">Price per-night</label>
+            <div class="input-group">
+               <span class="input-group-text" id="price-label">£</span>
+               <input class="form-control" type="text" name="campground[price]" id="price" value="<%=camp.price%>" aria-describedby="price-label" aria-label="price" placeholder="0.00" required>
+               <p class="valid-feedback">Looks Good!</p>
+            </div>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" name="campground[description]" id="description" cols="30" rows="3" placeholder="Describe this campsite" required><%=camp.description%></textarea>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <!-- move adding images to its own route -->
+         <div class="mb-3">
+            <label for="image" class="form-label">Upload Images</label>
+            <input class="form-control" type="file" multiple name="campground[image]" id="image">
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3 row">
+            <% camp.images.forEach(function(img, i){ %>
+            <div class="col-6">
+               <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail">
+               <div class="form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="<%=img.filename%>" name="deleteImg[]" id="delete-img<%=i%>">
+                  <label class="form-check-label" for="delete-img<%=i%>">
+                     Delete? </label>
+               </div>
+            </div>
+            <% }) %>
+         </div>
+         <div class="mb-3">
+            <button class="btn btn-success">Save Changes</button>
+            <a href="/campgrounds/<%=camp._id%>" class="btn btn-info">Back To Campground</a>
+         </div>
+      </form>
+      <p>Hide save until form has been changed</p>
+      <p>Use client validations to prevent
+         <ul>
+            <li>Uploading to many files at once</li>
+            <li>Files which are too large / check id Cloudinary will optimise file sizes</li>
+         </ul>
+         Use onChange event listener, target.files.length
+      </p>
+      <p>Also implement server side validation for number of images, type, size - possible via multer upload.array('string',max)</p>
+      <p>Set upper limit for total photos? - server can check and disable uploads on template</p>
+      <p>if all images deleted use a default which can be uploaded during camp creation if 'images' is blank</p>
+   </div>
+</div>

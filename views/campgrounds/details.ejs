@@ -1,0 +1,118 @@
+<% layout('layouts/boilerplate') %>
+<!-- layout is an extention provided by ejs-mate. it allows a template to be made where any code in these files are injected into the body of the template
+**** The templates (and any files) can still use partials to help construct -->
+<link rel="stylesheet" href="/css/starrating.css">
+
+<div class="row">
+   <h1>DETAILS</h1>
+
+   <div class="col-6">
+      <div class="card mb-3">
+         <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+               <% camp.images.forEach((img, i) => {%>
+               <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                  <img src="<%= img.url %>" class="d-block w-100 card-img-top" alt="">
+                  <div class="carousel-caption d-none d-md-block">
+                     <h5><%= camp.title %></h5>
+                     <p> <%= camp.location %> </p>
+                  </div>
+               </div>
+               <% }) %>
+            </div>
+            <% if(camp.images.length > 1) {%>
+            <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
+               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+               <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
+               <span class="carousel-control-next-icon" aria-hidden="true"></span>
+               <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+         </div>
+
+         <div class="card-body">
+            <h5 class="card-title"><%= camp.title.toUpperCase() %></h5>
+            <p class="card-text"><%= camp.location %></p>
+         </div>
+         <ul class="list-group list-group-flush">
+            <li class="list-group-item"><%= camp.description %></li>
+            <li class="list-group-item">£<%= camp.price %> Per Night</li>
+            <li class="list-group-item">Added By: <%= camp.author.username %></li>
+
+         </ul>
+         <% if(user && camp.author.equals(user._id)){ %>
+         <div class="card-body">
+            <a href="/campgrounds/<%=camp._id%>/edit" class="card-link btn btn-info">Edit Camp</a>
+            <form class="d-inline" action="/campgrounds/<%=camp._id%>?_method=DELETE" method=POST>
+               <button class="btn btn-danger">delete camp</button>
+            </form>
+         </div>
+         <% } %>
+      </div>
+   </div>
+   <div class="col-6">
+      <div id="map"></div>
+
+      <% if(user){ %>
+      <h2>Leave a Review</h2>
+      <form class="mb-3 needs-validation" action="/campgrounds/<%=camp._id%>/reviews?_method=PUT" novalidate method=POST>
+
+         <fieldset class="starability-basic">
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" aria-label="No rating." />
+            <input type="radio" id="first-rate1" checked name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+         </fieldset>
+
+         <div class="mb-3">
+            <label class="form-label" for="review-body">review text</label>
+            <textarea class="form-control" name="review[body]" id="review-body" cols="30" rows="3" placeholder="Enter Your Review" minlength="8" required></textarea>
+            <p class="invalid-feedback">Cannot make an empty review!!</p>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <button class="btn btn-success">Send</button>
+      </form>
+      <% } else { %>
+      <h2>Login to Leave a Review!</h2>
+      <% } %>
+      <section id="reviews">
+         <h2>Reviews</h2>
+         <% for(let review of camp.reviews) {%>
+         <div class="mb-3 card">
+            <div class="card-body">
+               <p class="card-title"><%= new Date(parseInt(review.date)).toDateString() %></p>
+               <h5 class="card-title"><%= review.author.username %></h5>
+
+               <p class="starability-result" data-rating=<%= review.rating %>>
+                  Rated <%=review.rating%> stars
+               </p>
+               <p class="card-text"><%= review.body %></p>
+
+            </div>
+            <% if(user && review.author.equals(user._id)){ %>
+            <div class="card-body">
+               <form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST"><button class="btn btn-sm btn-danger">Delete Comment</button></form>
+            </div>
+            <% } %>
+         </div>
+         <% } %>
+      </section>
+   </div>
+</div>
+
+<script>
+   const mapData = {
+      mapToken: '<%-process.env.MAPBOX_TOKEN%>',
+      campground: <%-JSON.stringify(camp) %> ,
+   }
+</script>
+<script src="/js/detailsPage.js"></script>

@@ -1,0 +1,8 @@
+<% if(message.length) { %>
+<div class="alert alert-<%=message[0].alert%> alert-dismissible fade show" role="alert">
+   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="<%=message[0].alert%>:">
+      <use xlink:href="#exclamation-triangle-fill" /></svg>
+   <%= message[0].msg %>
+   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>

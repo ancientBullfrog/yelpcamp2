@@ -1,0 +1,29 @@
+body {
+   padding-top: 58px;
+}
+
+#map, #cluster-map {
+   width: 100%; 
+   height: 300px;
+}
+
+#cluster-map {
+   height: 500px;
+}
+
+#user-account-icon {
+   color: #f5f5f5cc;
+   transition: color 0.3s ease-in-out
+}
+
+#user-account-icon:hover {
+   color: #f5f5f5ee;
+}
+
+.pw-update-text {
+   color: transparent
+}
+
+.success {
+   color:darkgreen
+}

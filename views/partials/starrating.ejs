@@ -1,0 +1,8 @@
+<% for(let i = 0; i < review.rating; i++) {%>
+<span>&#9733</span>
+<% } %>
+<% if(review.rating < 5){ %>
+<% for(let i = 0; i < 5 - review.rating; i++){ %>
+<span>&#9734</span>
+<% } %>
+<% } %>

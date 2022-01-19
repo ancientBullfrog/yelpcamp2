@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+   <h1>Forgot Password</h1>
+   <div class="col-6 offset-3">
+      <form action="/reset/<%=passwordResetToken%>" method="POST" novalidate class="needs-validation">
+         <div class="mb-3">
+            <label class="form-label" for="title">oldPassword</label>
+            <input class="form-control" type="password" name="user[oldPassword]" id="oldPassword" placeholder="old Password">
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <label class="form-label" for="title">newPassword</label>
+            <input class="form-control" type="password" name="user[newPassword]" id="newPassword" placeholder="new Password" required>
+            <p class="valid-feedback">Looks Good!</p>
+         </div>
+         <div class="mb-3">
+            <button class="btn btn-success">Recover Email</button>
+         </div>
+      </form>
+      <p>old password is not required left here as aspect of user.changePassword which could be used in a user account page</p>
+      <p>implenent new and confirm password inputs</p>
+      <p>validate with joi on server and write custom implementation for client</p>
+   </div>
+</div>
