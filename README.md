@@ -11,6 +11,7 @@ This version adds a few features to the base YelpCamp created in the course. The
 - added basic user profile where passsword can be updated
 - added forgot password with email reset link via node mailer
 - added pagination to index page
+- changed review model to allow comments on reviews
 
 Current issues are:
 - Using geo-location search input on the map does not update the list of campsites
@@ -18,3 +19,4 @@ Current issues are:
 - Anything else I haven't found yet
 - It's really, really ugly; except for the home page.
 - Not tested on mobile
+- No UI for comments on reviews.
