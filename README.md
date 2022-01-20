@@ -1,7 +1,7 @@
 # yelpcamp2
 Update to original functionality from the Web Development Bootcamp
 
-Demo site available here; https://mywifemademejoin-yelpcamp2.herokuapp.com/
+Demo site available here; https://mywifemademejoin-yelpcamp2.herokuapp.com/ - the initial hit could take up to 30 seconds to load if the app is 'sleeping'.
 
 Original functionality used CRUD to manage campsite data and introduced various third party software such as Cloudinary and Mapbox.
 
