@@ -7,11 +7,11 @@ Original functionality used CRUD to manage campsite data and introduced various 
 
 This version adds a few features to the base YelpCamp created in the course. These features are as follows:
 - Added Search to home page
-- added search to map
-- added basic user profile where passsword can be updated
-- added forgot password with email reset link via node mailer
-- added pagination to index page
-- changed review model to allow comments on reviews
+- Added search to map
+- Added basic user profile where passsword can be updated
+- Added forgot password with email reset link via node mailer
+- Added pagination to index page
+- Changed review model to allow comments on reviews
 
 Current issues are:
 - Using geo-location search input on the map does not update the list of campsites
